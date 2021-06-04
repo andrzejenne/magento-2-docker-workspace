@@ -1,6 +1,8 @@
 #!/bin/bash
 
-composer update
+cd /var/www
+
+composer install
 
 bin/magento setup:install --base-url=http://localhost/ \
 --db-host=db \
@@ -12,7 +14,6 @@ bin/magento setup:install --base-url=http://localhost/ \
 --elasticsearch-host=elastic \
 --cleanup-database
 
-rm -rf cache/* page_cache/* generated/*
+refresh.sh
 
-bin/magento setup:upgrade
 #bin/magento setup:di:compile
