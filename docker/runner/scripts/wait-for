@@ -1,0 +1,11 @@
+#!/bin/bash
+timeout 15 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' $1 $2
+
+if [ "$?" -eq "0" ]
+then
+  echo "$1 launched"
+  exit 0
+else
+  echo "$1 failed to start"
+  exit 1
+fi

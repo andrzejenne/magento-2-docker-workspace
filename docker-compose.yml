@@ -1,0 +1,53 @@
+version: "3.6"
+services:
+  db:
+    hostname: db
+    image: mariadb:10.4
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: lopata
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: lopata
+      MYSQL_DATABASE: magento
+    volumes:
+      - dbmag:/var/lib/mysql
+
+  elastic:
+    hostname: elastic
+    image: elasticsearch:7.9.3
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - dbel:/usr/share/elasticsearch/data
+
+  runner:
+    hostname: ns2
+    build:
+      dockerfile: docker/runner/Dockerfile
+      context: .
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: lopata
+      ELASTIC_HOST: elastic
+      ELASTIC_PORT: 9200
+    volumes:
+      - ./docker/runner/php-cli.ini:/etc/php/7.4/cli/php.ini
+      - ./docker/runner/php-fpm.ini:/etc/php/7.4/fpm/php.ini
+      - ./docker/runner/magento:/etc/nginx/sites-enabled/magento
+      - ./docker/runner/xdebug.ini:/etc/php/7.4/mods-available/xdebug.ini
+      - .:/var/www
+    depends_on:
+      - db
+      - elastic
+    ports:
+      - 80:80
+
+volumes:
+  dbmag:
+  dbel:

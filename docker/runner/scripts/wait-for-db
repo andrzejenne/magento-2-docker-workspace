@@ -1,0 +1,17 @@
+#!/bin/bash
+if [[ $# -ne 4 ]];
+then
+  echo "Usage: ./scripts/wait-for-db.sh [host] [port] [user] [password]";
+  exit 1
+fi
+
+timeout 15 bash -c 'until mysql --protocol TCP --user=$2 --password="$3" --host=$0 --port=$1 -e "show databases;" &>/dev/null; do sleep 1; done' $1 $2 $3 $4
+
+if [ "$?" -eq "0" ]
+then
+  echo "$1 ready"
+  exit 0
+else
+  echo "$1 failed to start"
+  exit 1
+fi
