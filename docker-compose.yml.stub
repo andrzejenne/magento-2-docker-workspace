@@ -25,7 +25,7 @@ services:
       - dbel:/usr/share/elasticsearch/data
 
   runner:
-    hostname: ns2
+    hostname: magento2
     build:
       dockerfile: docker/runner/Dockerfile
       context: .
@@ -34,14 +34,21 @@ services:
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: lopata
+      DB_NAME: magento
       ELASTIC_HOST: elastic
       ELASTIC_PORT: 9200
+      WAIT_TIMEOUT: 60
+      ADMIN_USER: root
+      ADMIN_PASSWORD: lopata1
+      ADMIN_FIRSTNAME: Admin
+      ADMIN_LASTNAME: User
+      ADMIN_EMAIL: admin@example.com
     volumes:
       - ./docker/runner/php-cli.ini:/etc/php/7.4/cli/php.ini
       - ./docker/runner/php-fpm.ini:/etc/php/7.4/fpm/php.ini
       - ./docker/runner/magento:/etc/nginx/sites-enabled/magento
       - ./docker/runner/xdebug.ini:/etc/php/7.4/mods-available/xdebug.ini
-      - .:/var/www
+      - ./magento2-src:/var/www
     depends_on:
       - db
       - elastic

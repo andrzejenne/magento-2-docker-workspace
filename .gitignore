@@ -2,3 +2,5 @@
 .config
 .local
 magento2-src
+*.bak
+docker-compose.yml
