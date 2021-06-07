@@ -8,13 +8,25 @@ docker and docker-compose must be ready on your system.
 
 ## Quick start
 
-Just run setup.sh and wait till it ends.
+Just run setup.sh and wait till it setups magento.
+
+## How to: spawn another version of magento
+
+First check system requirements for your version.
+
+Edit copy runner do another location and edit
+
+Update docker-compose.yml
+
+Setup with ./setup.sh $version.
+
+$verion can by tag or commit hash.
 
 ## Customizations
 
 Feel free to copy docker-compose.yml.stub to docker-compose.yml and customize by your needs.
 
-Runner dockerfile is prepared for magento
+The runner dockerfile was tested on magento 2.4.2.
 
 ## Usage
 
