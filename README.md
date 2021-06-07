@@ -15,3 +15,15 @@ Just run setup.sh and wait till it ends.
 Feel free to copy docker-compose.yml.stub to docker-compose.yml and customize by your needs.
 
 Runner dockerfile is prepared for magento
+
+## Usage
+
+Runs setup:upgrade 
+```bash
+docker-compose exec runner refresh.sh
+```
+
+Clears cache
+```bash
+docker-compose exec runner clean.sh
+```
