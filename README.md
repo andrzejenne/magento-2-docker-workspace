@@ -39,3 +39,18 @@ Clears cache
 ```bash
 docker-compose exec runner clean.sh
 ```
+
+## xdebug
+
+Enabled by default
+
+To disable run
+```bash
+docker-compose exec runner xdebug.sh stop
+```
+
+To enable run
+```bash
+docker-compose exec runner xdebug.sh
+```
+
