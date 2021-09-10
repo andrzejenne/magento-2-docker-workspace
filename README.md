@@ -30,7 +30,7 @@ The runner dockerfile was tested on magento 2.4.2.
 
 ## Usage
 
-Runs setup:upgrade 
+Runs clean and setup:upgrade
 ```bash
 docker-compose exec runner refresh.sh
 ```
@@ -54,3 +54,14 @@ To enable run
 docker-compose exec runner xdebug.sh
 ```
 
+## PHPStorm tips
+
+[External tools](https://www.jetbrains.com/help/phpstorm/settings-tools-external-tools.html) can be added to run commands above.  
+
+* name: xdebug on; group: Xdebug; command: docker-compose; arguments: exec -T runner xdebug.sh
+* name: xdebug off; group: Xdebug; command: docker-compose; arguments: exec -T runner xdebug.sh stop
+* name: start; group: Magento; command: docker-compose; arguments: up
+* name: refresh; group: Magento; command: docker-compose; arguments: exec -T runner refresh.sh
+* name: stop; group: Magento; command: docker-compose; arguments: down
+* name: show nginx errors; group: Magento; command: docker-compose; arguments: exec -T runner cat /var/log/nginx/error.log
+* name: get root token; group: Magento; command: curl; arguments: -X POST http://localhost/rest/V1/integration/admin/token   -H "Content-Type: application/json"   -d "{\"username\": \"root\", \"password\": \"lopata1\" }" 

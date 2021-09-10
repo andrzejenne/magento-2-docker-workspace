@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEFAULT_VERSION="2.4.2-p1"
+DEFAULT_VERSION="2.4.3"
 VERSION="$1"
 
 if [ -z "$VERSION" ]
